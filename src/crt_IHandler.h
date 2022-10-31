@@ -1,6 +1,8 @@
 // by Marius Versteegen, 2022
 
-#pragma once
+#ifndef CRT_IHANDLER
+#define CRT_IHANDLER
+
 #include "crt_IHandlerListener.h"
 
 namespace crt
@@ -12,3 +14,5 @@ namespace crt
 		virtual void addHandlerListener(IHandlerListener* pHandlerListener) = 0;
 	};
 };
+
+#endif

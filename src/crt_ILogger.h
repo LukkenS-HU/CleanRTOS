@@ -1,6 +1,8 @@
 // by Marius Versteegen, 2022
 
-#pragma once
+#ifndef CRT_ILOGGER
+#define CRT_ILOGGER
+
 namespace crt
 {
 	class ILogger
@@ -14,3 +16,5 @@ namespace crt
 		virtual void dumpNow() = 0;
 	};
 };
+
+#endif

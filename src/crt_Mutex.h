@@ -1,5 +1,8 @@
-#pragma once
+#ifndef CRT_MUTEX_GLOBAL
+#define CRT_MUTEX_GLOBAL
+
 #include "internals/crt_FreeRTOS.h"
+#include "crt_Task.h"
 
 namespace crt
 {
@@ -38,7 +41,7 @@ namespace crt
 			//xSemaphoreGive(freeRtosMutex);	// In case of a binary semaphore: that one should be given before it can be taken.
 		}
 		
-		void lock(Task* pTask)
+		void lock(crt::Task* pTask)
 		{
 			while (true)
 			{
@@ -63,3 +66,5 @@ namespace crt
 		}
 	};
 };
+
+#endif

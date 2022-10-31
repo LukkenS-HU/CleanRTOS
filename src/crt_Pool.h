@@ -5,7 +5,9 @@
 // Internally, a SimpleMutex is used to avoid concurrent access to the encapsulated data.
 // (see the Pool example in the examples folder)
 
-#pragma once
+#ifndef CRT_POOL
+#define CRT_POOL
+
 #include "internals/crt_FreeRTOS.h"
 #include "internals/crt_SimpleMutex.h"
 #include "crt_Mutex.h"
@@ -38,3 +40,5 @@ namespace crt
 		}
 	};
 };
+
+#endif

@@ -1,7 +1,7 @@
 // by Marius Versteegen, 2022
 
-#pragma once
-#include "crt_CleanRTOS.h"
+#ifndef CRT_WAITABLE
+#define CRT_WAITABLE
 
 // Waitable is the base class of anything that a task can wait for.
 // It is the base class of Flag, Queueand Timer.
@@ -48,3 +48,5 @@ namespace crt
         }
 	};
 };
+
+#endif

@@ -3,7 +3,10 @@
 // crt_CleanRTOS.h is a convenience include: it includes the most common parts 
 // of CleanRTOS
 
-#pragma once
+
+#ifndef CRT_CLEANRTOS_GLOBAL
+#define CRT_CLEANRTOS_GLOBAL
+
 #include "internals/crt_FreeRTOS.h"
 #include "crt_Config.h"
 #include "crt_MainInits.h"
@@ -30,3 +33,5 @@
 //      Use MutexSections in conjunction.
 //    * Even MutexSections should not be needed often, with a clear design.
 //      For example, try to use a Pool instead of a single MutexSection.
+
+#endif

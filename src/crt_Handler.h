@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CRT_HANDLER
+#define CRT_HANDLER
+
 #include "internals/crt_FreeRTOS.h"
 #include "crt_ILogger.h"
 #include "crt_Task.h"
@@ -197,3 +199,5 @@ namespace crt
 		}
 	}; // end class crt_Handler
 }; // end namespace CleanRTOS
+
+#endif

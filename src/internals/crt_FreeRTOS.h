@@ -1,6 +1,9 @@
 // by Marius Versteegen, 2022
 
-#include <stdio.h>
+#ifndef CRT_INTERNAL_FREERTOS
+#define CRT_INTERNAL_FREERTOS
+
+#include <cstdio>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/queue.h"
@@ -12,3 +15,5 @@
 #include "esp_log.h"
 //#include "esp_heap_trace.h"
 #include "esp_heap_caps.h"
+
+#endif

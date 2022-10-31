@@ -4,7 +4,9 @@
 // The task that owns the queue should wait for another task to put something into it.
 // (see the Queue example in the examples folder)
 
-#pragma once
+#ifndef CRT_QUEUE
+#define CRT_QUEUE
+
 #include "internals/crt_FreeRTOS.h"
 #include "crt_Waitable.h"
 #include "crt_Task.h"
@@ -78,3 +80,4 @@ namespace crt
 	};
 };
 
+#endif

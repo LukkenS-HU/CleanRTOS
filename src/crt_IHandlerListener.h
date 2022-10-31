@@ -1,6 +1,8 @@
 // by Marius Versteegen, 2022
 
-#pragma once
+#ifndef CRT_IHANDLER_LISTENER
+#define CRT_IHANDLER_LISTENER
+
 namespace crt
 {
 	class IHandlerListener
@@ -9,3 +11,5 @@ namespace crt
 		virtual void update()=0;
 	};
 };
+
+#endif

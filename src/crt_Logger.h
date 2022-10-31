@@ -1,6 +1,8 @@
 // by Marius Versteegen, 2022
 
-#pragma once
+#ifndef CRT_LOGGER
+#define CRT_LOGGER
+
 #include "internals/crt_FreeRTOS.h"
 #include "crt_CleanRTOS.h"
 #include "crt_LoggerTask.h"
@@ -278,3 +280,5 @@ namespace crt
 		}
 	}; // end class Logger
 }; // end namespace CleanRTOS
+
+#endif

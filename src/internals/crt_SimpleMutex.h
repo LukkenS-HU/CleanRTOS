@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CRT_INTERNAL_SIMPLE_MUTEX
+#define CRT_INTERNAL_SIMPLE_MUTEX
+
 #include "internals/crt_FreeRTOS.h"
 
 namespace crt
@@ -46,3 +48,5 @@ namespace crt
 		}
 	};
 };
+
+#endif

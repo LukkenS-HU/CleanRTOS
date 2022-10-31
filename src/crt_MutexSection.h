@@ -9,11 +9,15 @@
 
 // (see the MutexSection example in the examples folder)
 
-#pragma once
+#ifndef CRT_MUTEX_SECTION
+#define CRT_MUTEX_SECTION
+
 #include "crt_Mutex.h"
 
 namespace crt
 {
+    class Task;
+
 	// This class allows automatic Mutex release using the RAI-pattern.
 	class MutexSection
 	{
@@ -31,3 +35,5 @@ namespace crt
 		}
 	};
 };
+
+#endif

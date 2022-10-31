@@ -3,7 +3,9 @@
 // MainInits initializes CleanRTOS.
 // A MainInits object must be defined before the Tasks are started.
 
-#pragma once
+#ifndef CRT_MAIN_INITS
+#define CRT_MAIN_INITS
+
 #include "internals/crt_FreeRTOS.h"
 namespace crt
 {
@@ -16,3 +18,5 @@ namespace crt
         }
     };
 };
+
+#endif

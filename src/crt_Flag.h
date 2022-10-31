@@ -1,6 +1,8 @@
 // by Marius Versteegen, 2022
 
-#pragma once
+#ifndef CRT_FLAG
+#define CRT_FLAG
+
 #include "internals/crt_FreeRTOS.h"
 #include "crt_Waitable.h"
 #include "crt_Task.h"
@@ -34,3 +36,4 @@ namespace crt
     };
 };
 
+#endif

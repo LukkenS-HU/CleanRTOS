@@ -1,6 +1,7 @@
 // by Marius Versteegen, 2022
 
-#pragma once
+#ifndef CRT_INTERNAL_TASK_CRITICAL_SECTION
+#define CRT_INTERNAL_TASK_CRITICAL_SECTION
 
 namespace crt
 {
@@ -22,3 +23,5 @@ namespace crt
 		~TaskCriticalSection() { taskEXIT_CRITICAL(&criticalSectionMutex); };
 	};
 };
+
+#endif

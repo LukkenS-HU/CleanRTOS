@@ -1,6 +1,8 @@
 // by Marius Versteegen
 
-#pragma once
+#ifndef CRT_TIMER
+#define CRT_TIMER
+
 #include "internals/crt_FreeRTOS.h"
 #include "crt_Waitable.h"
 #include "crt_Task.h"
@@ -111,3 +113,5 @@ namespace crt
 		}
 	};
 };
+
+#endif

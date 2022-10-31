@@ -1,6 +1,7 @@
 // by Marius Versteegen, 2022
 
-#pragma once
+#ifndef CRT_INTERNAL_STACK
+#define CRT_INTERNAL_STACK
 
 namespace crt 
 {
@@ -67,3 +68,5 @@ namespace crt
 		};
 	};
 };
+
+#endif

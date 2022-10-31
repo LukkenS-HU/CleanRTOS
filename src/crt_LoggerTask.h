@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CRT_LOGGER_TASK
+#define CRT_LOGGER_TASK
+
 #include "internals/crt_FreeRTOS.h"
 namespace crt
 {
@@ -20,3 +22,5 @@ namespace crt
 		TaskHandle_t taskHandle;
 	};
 };
+
+#endif
