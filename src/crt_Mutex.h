@@ -51,7 +51,7 @@ namespace crt
 				rc = xSemaphoreTake(freeRtosMutex, 0.0001 /* tickDelay */);
 				if (rc == pdPASS)
 				{
-					assert(pTask->mutexIdStack.push(mutexID));// Assert would mean that either the amount of nested concurrently locked mutexes for this task exceeds the constant MAX_MUTEXNESTING, or the lock and unlock of the mutex are not performed in the same task.
+					pTask->mutexIdStack.push(mutexID);// Assert would mean that either the amount of nested concurrently locked mutexes for this task exceeds the constant MAX_MUTEXNESTING, or the lock and unlock of the mutex are not performed in the same task.
 					break;
 				}
 				taskYIELD(); // Feed the wdt.

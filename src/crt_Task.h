@@ -33,12 +33,12 @@ namespace crt
 		unsigned int taskPriority;
 		unsigned int taskStackSizeBytes;
 		unsigned int taskCoreNumber;
-		TaskHandle_t taskHandle;
+		TaskHandle_t taskHandle{};
 
 		uint32_t nofWaitables;
         uint32_t queuesMask;        // Every bit in this mask belongs to a queue.
-        uint32_t flagsMask;         // Every bit in this mask belongs to a flag.
-        uint32_t timersMask;        // Every bit in this mask belongs to a timer.
+        uint32_t flagsMask{};         // Every bit in this mask belongs to a flag.
+        uint32_t timersMask{};        // Every bit in this mask belongs to a timer.
 
         std::stack<uint32_t> mutexIdStack;
 
@@ -48,8 +48,13 @@ namespace crt
             nofWaitables(0), queuesMask(0), mutexIdStack()  // The value 0 is reserved for "empty stack".
 		{
 			hEventGroup = xEventGroupCreate();
-			assert(hEventGroup != NULL); // If failed, not enough heap memory.
+			assert(hEventGroup != nullptr); // If failed, not enough heap memory.
 		}
+
+        virtual ~Task()
+        {
+            stop();
+        }
 
         uint32_t queryBitNumber(Waitable* pWaitable)
         {
@@ -100,15 +105,21 @@ namespace crt
 				, taskCoreNumber);
 		}
 
-		virtual void main() = 0;
+        void stop()
+        {
+            vTaskDelete(&taskHandle); // Delete own task handle
+        }
+
+		virtual void MainLoop() = 0;
 
 	public:
 		// Next construct allows the main thread of the task to be run in a non-static function.
 		// That way, we can easily create multiple task objects from the same class.
-		static void staticMain(void *pParam)
+        [[noreturn]]
+        static void staticMain(void *pParam)
 		{
-			Task* pTask = (Task*)pParam;
-			pTask->main();
+            while (true)
+                ((Task*)pParam)->MainLoop();
 		}
 
 		// Next function gives an indication of whether the task (still) has enough stack and heap
@@ -116,7 +127,7 @@ namespace crt
         inline void dumpStackHighWaterMarkIfIncreased()
         {
 #ifdef CRT_HIGH_WATERMARK_INCREASE_LOGGING	
-            UBaseType_t temp = uxTaskGetStackHighWaterMark(NULL);
+            UBaseType_t temp = uxTaskGetStackHighWaterMark(nullptr);
             if (!prev_stack_hwm || temp < prev_stack_hwm)
             {
                 prev_stack_hwm = temp;
