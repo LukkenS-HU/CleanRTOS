@@ -40,12 +40,12 @@ namespace crt
         uint32_t flagsMask{};         // Every bit in this mask belongs to a flag.
         uint32_t timersMask{};        // Every bit in this mask belongs to a timer.
 
-        std::stack<uint32_t> mutexIdStack;
+        std::stack<uint32_t> mutexIdStack = std::stack<uint32_t>();
 
 	public:
         Task(const char *taskName, unsigned int taskPriority, unsigned int taskStackSizeBytes, unsigned int taskCoreNumber)
             : taskName(taskName), taskPriority(taskPriority), taskStackSizeBytes(taskStackSizeBytes), taskCoreNumber(taskCoreNumber),
-            nofWaitables(0), queuesMask(0), mutexIdStack()  // The value 0 is reserved for "empty stack".
+            nofWaitables(0), queuesMask(0) // The value 0 is reserved for "empty stack".
 		{
 			hEventGroup = xEventGroupCreate();
 			assert(hEventGroup != nullptr); // If failed, not enough heap memory.

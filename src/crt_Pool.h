@@ -12,6 +12,7 @@
 #include "internals/crt_SimpleMutex.h"
 #include "crt_Mutex.h"
 #include "crt_MutexSection.h"
+#include "crt_Flag.h"
 
 namespace crt
 {
@@ -22,10 +23,9 @@ namespace crt
         T data;
 		SimpleMutex simpleMutex;	// Unlike with Mutex, SimpleMutex does not offer deadlock protection,
 	public:                         // but that is no problem because the Pool inheritely poses no deadlock thread. (no case of multiple mutexes that can have different lock orders).
-		Pool()
-		{}
+		Pool() = default;
 		
-		void write (T item) 
+		void write (const T& item)
 		{
 			simpleMutex.lock();
 			data = item;

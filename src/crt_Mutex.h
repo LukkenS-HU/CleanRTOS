@@ -45,7 +45,8 @@ namespace crt
 		{
 			while (true)
 			{
-				assert(mutexID > pTask->mutexIdStack.top()); // Error : Potential Deadlock : Within each thread, never try to lock a mutex with lower mutex priority than a mutex that is locked(before it).
+                if (!pTask->mutexIdStack.empty())
+                    assert(mutexID > pTask->mutexIdStack.top()); // Error : Potential Deadlock : Within each thread, never try to lock a mutex with lower mutex priority than a mutex that is locked(before it).
 
 				// max tickDelay is the constant portMAX_DELAY
 				rc = xSemaphoreTake(freeRtosMutex, 0.0001 /* tickDelay */);

@@ -15,13 +15,13 @@ namespace crt
 	{
 	public:
 		SemaphoreHandle_t freeRtosMutex;
-		BaseType_t rc;
+		BaseType_t rc{};
 		
 	public:
 		// MutexSections with lower mutexID can wrap MutexSections with higher mutexID.
 		// but not the other way around (to prevent deadlocks).
-		SimpleMutex() :
-			freeRtosMutex(xSemaphoreCreateMutex())
+		SimpleMutex()
+        : freeRtosMutex(xSemaphoreCreateMutex())
 			//mutexID(mutexID), freeRtosMutex(xSemaphoreCreateBinary())
 		{
 			//xSemaphoreGive(freeRtosMutex);	// In case of a binary semaphore: that one should be given before it can be taken.
@@ -32,7 +32,7 @@ namespace crt
 			while (true)
 			{
 				// max tickDelay is the constant portMAX_DELAY
-				rc = xSemaphoreTake(freeRtosMutex, 0.0001 /* tickDelay */);
+				rc = xSemaphoreTake(freeRtosMutex, portMAX_DELAY /* tickDelay */);
 				if (rc == pdPASS)
 				{
 					break;
