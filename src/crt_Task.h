@@ -107,7 +107,7 @@ namespace crt
 
         void stop()
         {
-            vTaskDelete(&taskHandle); // Delete own task handle
+            vTaskDelete(taskHandle); // Delete own task handle
         }
 
 		virtual void MainLoop() = 0;
