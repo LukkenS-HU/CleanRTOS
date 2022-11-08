@@ -46,6 +46,7 @@ namespace crt
 
             timer_args.callback = static_timer_callback;
             timer_args.name = "timer"; // name for debug purposes.
+            timer_args.dispatch_method = ESP_TIMER_TASK;
             timer_args.arg = &timerCallBackInfo;
 
             esp_err_t err = esp_timer_create(&timer_args, &hTimer);
