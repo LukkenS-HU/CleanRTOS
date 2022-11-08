@@ -1,6 +1,7 @@
 #ifndef CRT_HANDLER
 #define CRT_HANDLER
 
+#include <esp_timer.h>
 #include "internals/crt_FreeRTOS.h"
 #include "crt_ILogger.h"
 #include "crt_Task.h"

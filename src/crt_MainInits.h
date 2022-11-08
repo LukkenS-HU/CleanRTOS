@@ -7,6 +7,8 @@
 #define CRT_MAIN_INITS
 
 #include "internals/crt_FreeRTOS.h"
+#include <esp_timer.h>
+
 namespace crt
 {
     class MainInits
