@@ -3,6 +3,7 @@
 #ifndef CRT_TIMER
 #define CRT_TIMER
 
+#include <esp_timer.h>
 #include "internals/crt_FreeRTOS.h"
 #include "crt_Waitable.h"
 #include "crt_Task.h"
