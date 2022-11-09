@@ -14,6 +14,7 @@ set(srcs "src/CleanRTOS.h"
          "src/crt_Queue.h"
          "src/crt_Task.h"
          "src/crt_Timer.h"
+         "src/crt_HWTimer.h"
          "src/crt_Waitable.h"
          "src/internals/crt__std_Stack.h"
          "src/internals/crt_FreeRTOS.h"
@@ -22,4 +23,5 @@ set(srcs "src/CleanRTOS.h"
 
 idf_component_register(SRCS ${srcs}
         INCLUDE_DIRS src
+        REQUIRES driver
         )
