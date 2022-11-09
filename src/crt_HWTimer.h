@@ -37,6 +37,8 @@ namespace crt
             gptimer_register_event_callbacks(_timerHandle, &callbackConfig, this);
 
             SetInterval(intervalUs);
+
+            gptimer_enable(_timerHandle);
         }
 
         HWTimer(const HWTimer &other) = delete;
@@ -50,14 +52,12 @@ namespace crt
 
         void Start()
         {
-            gptimer_enable(_timerHandle);
             gptimer_start(_timerHandle);
         }
 
         void Stop()
         {
             gptimer_stop(_timerHandle);
-            gptimer_disable(_timerHandle);
         }
 
         void SetInterval(uint64_t intervalUs)
