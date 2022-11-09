@@ -39,6 +39,9 @@ namespace crt
             SetInterval(intervalUs);
         }
 
+        HWTimer(const HWTimer &other) = delete;
+        HWTimer &operator=(const HWTimer& other) = delete;
+
         ~HWTimer()
         {
             gptimer_stop(_timerHandle);
