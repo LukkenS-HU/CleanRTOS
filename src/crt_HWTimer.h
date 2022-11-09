@@ -15,13 +15,14 @@
 
 namespace crt
 {
+    template <typename T>
     class HWTimer
     {
     public:
-        typedef std::function<bool(Task *, const gptimer_alarm_event_data_t *)> Callback_t;
+        typedef std::function<bool(T *, const gptimer_alarm_event_data_t *)> Callback_t;
 
-        explicit HWTimer(Callback_t callback, Task *task, uint64_t intervalUs)
-        : _callback(std::move(callback)), _task(task), _timerHandle()
+        explicit HWTimer(Callback_t callback, T *owner, uint64_t intervalUs)
+        : _callback(std::move(callback)), _owner(owner), _timerHandle()
         {
             gptimer_config_t configuration = {
                     .clk_src = GPTIMER_CLK_SRC_DEFAULT,
@@ -68,11 +69,11 @@ namespace crt
         static bool TimerCallback(gptimer_handle_t timer, const gptimer_alarm_event_data_t *edata, void *user_ctx)
         {
             auto *self = (HWTimer*)user_ctx;
-            return self->_callback(self->_task, edata);
+            return self->_callback(self->_owner, edata);
         }
 
         Callback_t _callback;
-        Task *_task;
+        T *_owner;
 
         gptimer_handle_t _timerHandle;
     };
