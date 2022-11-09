@@ -15,14 +15,13 @@
 
 namespace crt
 {
-    template <typename T>
     class HWTimer
     {
     public:
-        typedef std::function<bool(T *, const gptimer_alarm_event_data_t *)> Callback_t;
+        typedef std::function<bool(const gptimer_alarm_event_data_t *)> Callback_t;
 
-        explicit HWTimer(Callback_t callback, T *owner, uint64_t intervalUs)
-        : _callback(std::move(callback)), _owner(owner), _timerHandle()
+        explicit HWTimer(Callback_t callback, uint64_t intervalUs)
+        : _callback(std::move(callback)), _timerHandle()
         {
             gptimer_config_t configuration = {
                     .clk_src = GPTIMER_CLK_SRC_DEFAULT,
@@ -37,16 +36,7 @@ namespace crt
             };
             gptimer_register_event_callbacks(_timerHandle, &callbackConfig, this);
 
-            gptimer_alarm_config_t alarmConfig = {
-                    .alarm_count = intervalUs,
-                    .reload_count = 0xFFFFFFFFFFFFFFFF,
-                    .flags = {
-                            .auto_reload_on_alarm = true
-                    }
-            };
-            gptimer_set_alarm_action(_timerHandle, &alarmConfig);
-
-            gptimer_enable(_timerHandle);
+            SetInterval(intervalUs);
         }
 
         ~HWTimer()
@@ -57,19 +47,33 @@ namespace crt
 
         void Start()
         {
+            gptimer_enable(_timerHandle);
             gptimer_start(_timerHandle);
         }
 
         void Stop()
         {
             gptimer_stop(_timerHandle);
+            gptimer_disable(_timerHandle);
+        }
+
+        void SetInterval(uint64_t intervalUs)
+        {
+            gptimer_alarm_config_t alarmConfig = {
+                    .alarm_count = intervalUs,
+                    .reload_count = 0xFFFFFFFFFFFFFFFF,
+                    .flags = {
+                            .auto_reload_on_alarm = true
+                    }
+            };
+            gptimer_set_alarm_action(_timerHandle, &alarmConfig);
         }
 
     private:
         static bool TimerCallback(gptimer_handle_t timer, const gptimer_alarm_event_data_t *edata, void *user_ctx)
         {
             auto *self = (HWTimer*)user_ctx;
-            return self->_callback(self->_owner, edata);
+            return self->_callback(edata);
         }
 
         Callback_t _callback;
