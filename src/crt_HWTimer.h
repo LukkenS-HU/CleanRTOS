@@ -77,7 +77,6 @@ namespace crt
         }
 
         Callback_t _callback;
-        T *_owner;
 
         gptimer_handle_t _timerHandle;
     };
