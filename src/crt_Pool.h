@@ -25,20 +25,45 @@ namespace crt
 	public:                         // but that is no problem because the Pool inheritely poses no deadlock thread. (no case of multiple mutexes that can have different lock orders).
 		Pool() = default;
 		
-		void write (const T& item)
+		virtual void write (const T& item)
 		{
 			simpleMutex.lock();
 			data = item;
 			simpleMutex.unlock();
 		}
       
-		void read (T& item)
+		virtual void read (T& item)
 		{
 			simpleMutex.lock();
 			item = data;
 			simpleMutex.unlock();
 		}
 	};
+
+    template <typename T>
+    class TaskPool : public Pool<T>
+    {
+    public:
+        explicit TaskPool(Task *task)
+        : PoolFlag(task)
+        {
+
+        }
+
+        void write(const T &item) override
+        {
+            Pool<T>::write(item);
+            PoolFlag.set();
+        }
+
+        void read(T &item) override
+        {
+            Pool<T>::read(item);
+            PoolFlag.clear();
+        }
+
+        Flag PoolFlag;
+    };
 };
 
 #endif
